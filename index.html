@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple Marker Icons</title>
+    <style>
+      #map {
+        height: 100%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+      
+    <div id="map"></div>
+    
+    <script>
+    var map;
+    function initMap() {
+    
+          var locations = [
+              ['TariqXpress - Web Developer, tariqxpress.com', 35.162977, 33.364352, 1]
+          ];
+    
+    
+          map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: 35.162977, lng: 33.364352},
+              zoom: 17
+          });
+    
+          var infowindow = new google.maps.InfoWindow();
+    
+          var marker, i;
+    
+          for (i = 0; i < locations.length; i++) {
+    
+    
+              if ((("https://anh.tariqxpress.com/wp-content/uploads/2019/02/map-anh-icon.png'")==("Add File"))||(("https://anh.tariqxpress.com/wp-content/uploads/2019/02/map-anh-icon.png'")==(" "))) {
+                  marker = new google.maps.Marker({
+                      position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                      map: map
+                  });
+              }
+              else {
+                  var icono="https://anh.tariqxpress.com/wp-content/uploads/2019/02/map-anh-icon.png'";
+                  marker = new google.maps.Marker({
+                      position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                      map: map,
+                      icon: icono
+                  });
+              }
+    
+              google.maps.event.addListenerOnce(map, 'idle', function() {
+                  google.maps.event.trigger(map, 'resize');
+                  map.setCenter(new google.maps.LatLng(35.162977, 33.364352));
+              });
+    
+              google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                  return function() {
+                      infowindow.setContent(locations[i][0]);
+                      infowindow.open(map, marker);
+                  }
+              })(marker, i));
+          }
+    
+      }
+
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvNUvNVQ_Tqg77qNvQWEnvt6O2EPIeAMM&callback=initMap">
+    </script>
+    
+  </body>
+</html>
